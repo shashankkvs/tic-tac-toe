@@ -37,8 +37,9 @@ def clear_board():
 def print_welcome():
     print("*"+"WELCOME TO TIC-TACT-TOE"+"*")
     select=input("select-- 1:human vs computer\t2:human1 vs human2\n")
-    pl1.name=input("Enter Player 1 Name:")
-    if select=="2":pl2.name=input("Enter Player 2 Name:")
+     
+    pl1.name=input("Enter Player 1 Name:")+"_P1"
+    if select=="2":pl2.name=input("Enter Player 2 Name:")+"_P2"
 
     pl1.ch=input("{} choose ur character X  or O:".format(pl1.name))
     while pl1.ch not in ["x","o","X","O"]:
@@ -51,32 +52,31 @@ def print_welcome():
         pl1.ch="O"
         pl2.ch="X"
     
-def linecrossed(x):
+def win(x):
     if (x==board[1] and x==board[2] and x==board[3] ) or (x==board[4] and x==board[5] and x==board[6] )or (x==board[7] and x==board[8] and x==board[9] )or (x==board[1] and x==board[4] and x==board[7]) or (x==board[1] and x==board[5] and x==board[9] ) or(x==board[3] and x==board[5] and x==board[7] )or (x==board[2] and x==board[5] and x==board[8]) or (x==board[3] and x==board[6] and x==board[9]): return True
     else: return False
-x=3
 def playgame():
     print_welcome()
     while not isboardfull():
         printboard()
         if len(block)%2==1: player=pl1
         else : player=pl2
-        try:
-            x=int(input("{} select a block:".format(player.name)))
-        except:
-            print("Enter valid number:")
+        x=0
         while x not in block:
             try:
-                x=int(input("{} enter the position number[1-9]:".format(player.name)))
+                x=int(input("{} selcet the block[1-9]:".format(player.name)))
             except:
                 print("Enter valid number:")
         insert_l(player.ch,x)
-        if linecrossed(player.ch):
+        if win(player.ch):
+            printboard()
             print("***CONGRATULATIONS {} YOU WON GAME***".format(player.name.upper()))
             print("GAME OVER")
             break
             
-    if isboardfull():print("Game tied")
+    if isboardfull():
+        printboard()
+        print("Game tied")
 
 if __name__ =="__main__":
     while True:
