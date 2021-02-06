@@ -1,4 +1,5 @@
 import os
+import random
 board=[" " for i in range(10)]
 board[0]="LETS PLAY"
 select=1
@@ -30,9 +31,6 @@ def insert_l(letter,pos):
     board[pos]=letter
     block.remove(pos)
 
-def clear_l(pos):
-    board[pos]=" "
-
 def clear_board():
     (clear_l(i) for i in range(1,10))
 def print_welcome():
@@ -41,6 +39,7 @@ def print_welcome():
      
     pl1.name=input("Enter Player 1 Name:")+"_P1"
     if select=="2":pl2.name=input("Enter Player 2 Name:")+"_P2"
+    else: print("player number 2 is computer") ; pl2.name="Computer"
 
     pl1.ch=input("{} choose ur character X  or O:".format(pl1.name))
     while pl1.ch not in ["x","o","X","O"]:
@@ -64,11 +63,15 @@ def playgame():
         if len(block)%2==1: player=pl1
         else : player=pl2
         x=0
-        while x not in block:
-            try:
-                x=int(input("{} selcet the block[1-9]:".format(player.name)))
-            except:
-                print("Enter valid number:")
+        if pl2.name=="Computer" and player==pl2:
+            x=random.choice(block)
+        else:
+
+            while x not in block:
+                try:
+                    x=int(input("{} selcet the block[1-9]:".format(player.name)))
+                except:
+                    print("Enter valid number:")
         insert_l(player.ch,x)
         if win(player.ch):
             os.system("clear")
