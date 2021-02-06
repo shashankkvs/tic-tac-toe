@@ -1,3 +1,4 @@
+import os
 board=[" " for i in range(10)]
 board[0]="LETS PLAY"
 select=1
@@ -58,6 +59,7 @@ def win(x):
 def playgame():
     print_welcome()
     while not isboardfull():
+        os.system("clear")
         printboard()
         if len(block)%2==1: player=pl1
         else : player=pl2
@@ -69,19 +71,21 @@ def playgame():
                 print("Enter valid number:")
         insert_l(player.ch,x)
         if win(player.ch):
+            os.system("clear")
             printboard()
             print("***CONGRATULATIONS {} YOU WON GAME***".format(player.name.upper()))
             print("GAME OVER")
             break
             
     if isboardfull():
+        os.system("clear")
         printboard()
         print("Game tied")
 
 if __name__ =="__main__":
     while True:
         playgame()
-        x=input("DO YOU WANT TO PLAY ANAOTHER GAME\npress p to play\tpress any other key to quit\n ")
+        x=input("DO YOU WANT TO PLAY ANAOTHER GAME\npress p to play\t\tpress any other key to quit\n ")
         if x != "p":
             print("*"*5+"THANK YOU"+"*"*5)
             break
